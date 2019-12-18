@@ -6,21 +6,44 @@ import Home from "../screens/Tabs/Home";
 import Search from "../screens/Tabs/Search";
 import Notifications from "../screens/Tabs/Notifications";
 import Profile from "../screens/Tabs/Profile";
+import Detail from "../screens/Detail";
 import MessagesLink from "../components/MessagesLink";
 import { View } from "react-native";
 import NavIcon from "../components/NavIcon";
 import { stackStyles } from "./config";
+import styles from "../styles";
+import UserDetail from "../screens/UserDetail";
 
 const stackFactory = (initialRoute, customConfig) =>
-  createStackNavigator({
-    InitialRoute: {
-      screen: initialRoute,
-      navigationOptions: {
-        ...customConfig,
-        headerStyle: { ...stackStyles }
+  createStackNavigator(
+    {
+      InitialRoute: {
+        screen: initialRoute,
+        navigationOptions: {
+          ...customConfig
+        }
+      },
+      Detail: {
+        screen: Detail,
+        navigationOptions: {
+          title: "Photo"
+        }
+      },
+      UserDetail: {
+        screen: UserDetail,
+        navigationOptions: ({ navigation }) => ({
+          title: navigation.getParam("username")
+        })
       }
-    }},
-    { headerLayoutPreset: "center"}
+    },
+    { headerLayoutPreset: "center"},
+    {
+      defaultNavigationOptions: {
+        headerBackTitle: null,
+        headerTintColor: styles.blackColor,
+        headerStyle: { ...stackStyles },
+      }
+    }
   );
 
   export default createBottomTabNavigator(
@@ -40,9 +63,7 @@ const stackFactory = (initialRoute, customConfig) =>
         }
       },
       Search: {
-        screen: stackFactory(Search, {
-          title: "Search"
-        }),
+        screen: stackFactory(Search),
         navigationOptions: {
           tabBarIcon: ({ focused }) => (
             <NavIcon
@@ -60,8 +81,12 @@ const stackFactory = (initialRoute, customConfig) =>
           tabBarIcon: ({ focused }) => (
             <NavIcon
               focused={focused}
-              size={28}
-               name={Platform.OS === "ios" ? "ios-add" : "md-add"}
+              size={32}
+              name={
+                Platform.OS === "ios"
+                  ? "ios-add-circle-outline"
+                  : "md-add-circle-outline"
+              }
             />
           )
         }
@@ -102,6 +127,7 @@ const stackFactory = (initialRoute, customConfig) =>
       }
     },
     {
+      initialRouteName:"Profile",
       tabBarOptions: {
         showLabel: false,
         style: {
