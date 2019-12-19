@@ -1,12 +1,12 @@
 # Prismagram IOS & Android App
 
 Screens:
-- [ ] Home
-- [ ] Search
-- [ ] Upload
+- [o] Home
+- [o] Search
+- [x] Upload
 - [ ] Notifications (Challenge)
-- [ ] Profile
+- [o] Profile
 - [ ] Edit Profile (Challenge)
-- [ ] Photo Detail
+- [o] Photo Detail
 - [ ] Photo Comments (Challenge)
 - [ ] Photo Likes (Challenge)
